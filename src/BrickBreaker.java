@@ -12,11 +12,9 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
 
 /**
- * Created with IntelliJ IDEA.
- *
  * @author cdsteer
- *         - created 19/06/2013
- * @version *.*
+ * - created 19/06/2013
+ * @version 1.0
  */
 public class BrickBreaker {
 
@@ -126,7 +124,6 @@ public class BrickBreaker {
 
         for (Brick brick : bricks) {
             if (ball.intersects(brick)) {
-                System.out.println("hello");
                 ball.setDY(Math.abs(ball.getDY()));
                 brick.setUsed(false);
                 brick.setX(0);
@@ -147,15 +144,16 @@ public class BrickBreaker {
 
         }
 
-
         //Top Bound
         if (ball.getY() < 0) {
             ball.setDY(-ball.getDY());
         }
 
         //left
-        if (ball.getX() > 0 ) {
-            ball.setDX(+ball.getDX());
+        if (ball.getX() <= 0) {
+            ball.setDX(Math.abs(ball.getDX()));
+            Random ran = new Random();
+            ball.setDX(ball.getDX() + bat.getDX() / 3 + (double) (1 - ran.nextInt(2)) / 200);
         }
 
         //right
@@ -172,7 +170,7 @@ public class BrickBreaker {
 
         //fix DY if DY is too large
         //if (Math.abs(ball.getDY()) > Math.abs(ball.getDX() * 1.5)) {
-         //   ball.setDY(ball.getDY() / 1.5);
+        //  ball.setDY(ball.getDY() / 1.5);
         //}
 
     }
